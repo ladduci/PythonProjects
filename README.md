@@ -5,7 +5,7 @@ Learning Python. I am using this repo to track my projects and their progress, w
 
 ### Basic WEB Scraper
 
-Scrapes pictures from a web site. It takes the URL and Download directory as inputs, and resumes download if interrupted. It Logs errors.
+Scrapes pictures from a web site. It takes the URL and Download directory as inputs, and resumes download if interrupted. It logs errors.
 
 ### Pivot Table
 
