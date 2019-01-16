@@ -16,8 +16,24 @@ args = parser.parse_args()
 base_url = args.inputURL
 download_directory= args.downloadDir
 
-logging.basicConfig(filename="scraper.log",format='%(asctime)s %(message)s', datefmt='%d/%m/%Y %H:%M:%S', level=logging.DEBUG)
-logging.info("The test Web scraper is now running")
+# create logger with 'web_scraper'
+logger = logging.getLogger('web_scraper')
+logger.setLevel(logging.DEBUG)
+# create file handler which logs even debug messages
+fh = logging.FileHandler('scraper.log')
+fh.setLevel(logging.DEBUG)
+# create console handler with a higher log level
+ch = logging.StreamHandler()
+ch.setLevel(logging.ERROR)
+# create formatter and add it to the handlers
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatter)
+ch.setFormatter(formatter)
+# add the handlers to the logger
+logger.addHandler(fh)
+logger.addHandler(ch)
+logger.info("The test Web scraper is now running")
+
 to_visit = set((base_url,))
 visited = set()
 
@@ -25,8 +41,7 @@ while to_visit:
      #Pick a link to visit.
 	 #Visit the link.
 	 current_page = to_visit.pop()
-	 print("visiting:", current_page)
-	 logging.info("visiting: %s" % current_page)
+	 logger.info("visiting: %s" % current_page)
 	 visited.add(current_page)
 	 content = urllib.request.urlopen(current_page).read()
      
@@ -36,15 +51,13 @@ while to_visit:
 		 if absolute_link not in visited:
 		 to_visit.add(absolute_link)
 		 else:
-		     print("Already visited:", absolute_link)
-			logging.info("Already visited:%s" % absolute_link)
+			logger.info("Already visited:%s" % absolute_link)
 			 
      # Download any images on the page.
 	 for img in BeautifulSoup(content, "lxml").findAll("img"):
 	      img_href = urljoin(current_page, img["src"]
-		  print("Downloading image", img_href)
-		  logging.info("Downloading image%s" % img_href))
+		  logger.info("Downloading image%s" % img_href))
 		  img_name = img_href.split("/")[-1]
 		  urllib.request.urlretrieve(img_href, os.path.join(download_directory, img_name))
 		  img_size = int(requests.head(img_href).headers['Content-length'])
-          logging.debug('File size is %s' % img_size)
+          logger.debug('File size is %s' % img_size)
