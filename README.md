@@ -9,4 +9,9 @@ Scrapes pictures from a web site. It takes the URL and Download directory as inp
 
 ### Pivot Table
 
-It creates a pivot table from csv input data. Input parameters are the input directory and two data columns that we want to use as indexes for the pivot table. The script reads all csv files in the input directory and loads them into one single data frame. Then creates a pivot table with the indexes given as input parameters.
+It creates a pivot table from csv input data. Input parameters are the input directory and two data columns that are the indexes of the pivot table. The script reads all csv files in the input directory and loads them into one single data frame. Then creates a pivot table with the indexes given as input parameters.
+
+### Interact with a REST API
+
+Access a Generic Web Commerce Platform order database through its REST API. Authentication will be through a Bearer Token. From the API JSON data is obtained that will be loaded into a python dictionary to obtain needed order information.
+
