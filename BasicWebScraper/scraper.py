@@ -94,8 +94,7 @@ while to_visit:
 		 if absolute_link not in visited:
 		 to_visit.add(absolute_link)
 		 else:
-			logger.info("Already visited:%s" % absolute_link)
-			 
+			logger.info("Already visited:%s" % absolute_link)			 
      # Download any images on the page.
 	 for img in BeautifulSoup(content, "lxml").findAll("img"):
 	      img_href = urljoin(current_page, img["src"]
