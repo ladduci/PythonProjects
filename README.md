@@ -13,5 +13,5 @@ It creates a pivot table from csv input data. Input parameters are the input dir
 
 ### Interact with a REST API
 
-Access a Generic Web Commerce Platform order database through its REST API. Authentication will be through a Bearer Token. From the API JSON data is obtained that will be loaded into a python dictionary to obtain needed order information.
+Access a genericREST API. Authentication will be through a Bearer Token. From the API JSON data is obtained that will be loaded into a python dictionary to obtain needed information.
 
