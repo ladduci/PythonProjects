@@ -1,4 +1,4 @@
-# Assumptions: python code to access a web commerce Platform order database through its REST API.
+# Assumptions: python code to access a system/app through a REST API and process the data we get back.
 # Authentication will be through a Bearer Token. We get from the API JSON data that we will load into a python dictionary
 
 import sys
@@ -6,10 +6,10 @@ import argparse
 import json
 import requests
 import logging
-parser = argparse.ArgumentParser(description="Script to access order data in a web commerce platform through a REST API")
+parser = argparse.ArgumentParser(description="Script to access data from a system/app through a REST API")
 parser.add_argument("api_url_base",metavar="API_url_base", help="REST API url base ") #the base URL of the REST API
 parser.add_argument("api_token",metavar="APIToken", help="Bearer Token to acces the REST API") #Bearer Token to acces the REST API
-parser.add_argument("orderid", help= "order ID")
+parser.add_argument("dataInfo", help= "Info we need ") # data we need
 args = parser.parse_args()
 		
 
@@ -38,11 +38,11 @@ ch.setFormatter(formatter)
 logger.addHandler(fh)
 logger.addHandler(ch)
 
-logger.info("Running Script to obtain Order Data")
+logger.info("Running Script to obtain Data thorough the REST API")
 		   
 
-def get_order_status(orderid)
-   api_url = '{0}orders/orderid/status'.format(api_url_base)
+def get_data_back(dataInfo)
+   api_url = '{0}data/dataInfo/dataInfoField'.format(api_url_base)
    response = requests.get(api_url, headers=headers)
    #This code handles six different error conditions by looking at the HTTP status code in the response.
    #A code of 500 or greater indicates a problem on the server. These should be rare, and they are not caused by problems with the request, so I print only the status code.
@@ -72,9 +72,10 @@ def get_order_status(orderid)
         print('[!] [{0}] Unexpected Redirect'.format(response.status_code))
 		logging.error("Unexpected Redirect'.format(response.status_code)%s")
         return None
+	## For a successful API call, response code will be 200 (OK)
     elif response.status_code == 200:
-        order_status = json.loads(response.content.decode('utf-8'))
-        return order_status
+        data_infoField = json.loads(response.content.decode('utf-8'))
+        return data_infoField
     else:
         print('[?] Unexpected Error: [HTTP {0}]: Content: {1}'.format(response.status_code, response.content))
 		logging.error("Unexpected Error'.format(response.status_code, response.content)%s")
@@ -85,16 +86,15 @@ def get_order_status(orderid)
     else:
         return None
 		
-order_status = get_order_status(orderid)
-if order_status is not None:
-    if order_status[status] == 'shipped'
-       print("Great news your order was shipped on the: ")
-       print('{0}'.format(order_status['dateShipped']))
-	   print("And it should arrive on: ")
-	   print('{0}'.format(order_status['dateArrived']))
+info_weWanted = get_data_back(dataInfo)
+if info_weWanted is not None:
+    
+       print("Great news your information is: ")
+       print('{0}'.format(info_weWanted))
+	   
 
 else:
-    print('[!] Your order number is incorrect')
+    print('[!] You are looking for data that does not exist in the System')
 
 
 
