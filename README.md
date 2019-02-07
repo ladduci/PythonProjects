@@ -15,3 +15,5 @@ It creates a pivot table from csv input data. Input parameters are the input dir
 
 Access a genericREST API. Authentication will be through a Bearer Token. From the API JSON data is obtained that will be loaded into a python dictionary to obtain needed information.
 
+### Simple ELK example
+Load JSON data into Elasticsearch, in this small example we have JSON Log files that we want to load
